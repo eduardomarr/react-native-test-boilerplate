@@ -20,26 +20,27 @@ import {
 
 import WeFitLogo from "../../assets/images/WefitLogo.png";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useContext } from "react";
+import { Repository, RepositoryContext } from "../../context/repository";
 
-interface RepositoryCardProps {}
+type RepositoryCardProps = { repository: Repository };
 
-export function RepositoryCard() {
+export function RepositoryCard({ repository }: RepositoryCardProps) {
+  const { addFavoriteRepository } = useContext(RepositoryContext);
   return (
     <Container>
       <Header>
         <Title>
-          appswefit/<BoldTitle>create-react-app</BoldTitle>
+          {repository.owner.name}/<BoldTitle>{repository.name}</BoldTitle>
         </Title>
-        <Logo source={WeFitLogo} />
+        <Logo source={{ uri: repository.owner.avatar }} />
       </Header>
       <LineSpacer />
       <Content>
-        <Description>
-          Yarn Workspaces Monorepo support for Create-React-App / React-Scripts.
-        </Description>
+        <Description>{repository.description}</Description>
         <Footer>
           <GestureHandlerRootView>
-            <FavoriteButton onPress={() => console.log("fav")}>
+            <FavoriteButton onPress={() => addFavoriteRepository(repository)}>
               <FavoriteIcon name="star" />
               <FavoriteButtonTitle>Favoritar</FavoriteButtonTitle>
             </FavoriteButton>
@@ -47,12 +48,12 @@ export function RepositoryCard() {
 
           <FavoritesContainer>
             <FavoriteIcon name="star" />
-            <Favorites>0</Favorites>
+            <Favorites>{repository.stars}</Favorites>
           </FavoritesContainer>
 
           <LanguageContainer>
             <LanguageColor />
-            <Language>Typescript</Language>
+            <Language>{repository.language}</Language>
           </LanguageContainer>
         </Footer>
       </Content>

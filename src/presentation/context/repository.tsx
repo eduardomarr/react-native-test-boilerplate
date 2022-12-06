@@ -1,10 +1,10 @@
-
 import React, { createContext, useState } from "react";
+import RepoHttpService from "../../infrastructure/service/RepoHttpService";
 import UserSelectionModal from "../components/UserSelectionModal";
 
 type Children = { children: JSX.Element };
 
-type Repository = {
+export type Repository = {
   id: number;
   name: string;
   owner: { name: string; avatar: string };
@@ -25,7 +25,7 @@ export type RepositoryContextData = {
 };
 
 export const RepositoryContext = createContext<RepositoryContextData>(
-  {} as RepositoryContextData,
+  {} as RepositoryContextData
 );
 
 export const RepositoryProvider = ({ children }: Children) => {
@@ -37,7 +37,25 @@ export const RepositoryProvider = ({ children }: Children) => {
   const toggleUserSelectionModal = () => setShowModal((value) => !value);
 
   const addFavoriteRepository = async (repository: Repository) => {
-    // TODO
+    const allRepositories = [...repositories];
+
+    const favorites = allRepositories.map((item: Repository) => {
+      if (item.id === repository.id) {
+        return {
+          ...item,
+          favorite: true,
+        };
+      }
+      return item;
+    });
+
+    const notFavorites = favorites.filter(
+      (item: Repository) => item.favorite === false
+    );
+
+    setFavorites(favorites);
+
+    setRepositories(notFavorites);
   };
 
   const removeFavoriteRepository = async (repository: Repository) => {
@@ -45,7 +63,23 @@ export const RepositoryProvider = ({ children }: Children) => {
   };
 
   const getUserRepositories = async (user: string) => {
-    // TODO
+    const { data } = await RepoHttpService.get(user);
+
+    const repositoryList = data.map((item) => ({
+      id: item.id,
+      name: item.name,
+      owner: {
+        name: item.owner.login,
+        avatar: item.owner.avatar_url,
+      },
+      description: item.description,
+      url: item.url,
+      language: item.language,
+      stars: item.stargazers_count,
+      favorite: false,
+    }));
+
+    setRepositories(repositoryList);
   };
 
   return (
@@ -56,12 +90,14 @@ export const RepositoryProvider = ({ children }: Children) => {
         getUserRepositories,
         toggleUserSelectionModal,
         addFavoriteRepository,
-        removeFavoriteRepository
+        removeFavoriteRepository,
       }}
     >
       {children}
-      <UserSelectionModal visible={showModal} onClose={() => setShowModal(false)} />
+      <UserSelectionModal
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </RepositoryContext.Provider>
   );
 };
-

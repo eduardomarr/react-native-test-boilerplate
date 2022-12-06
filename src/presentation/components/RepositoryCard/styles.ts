@@ -2,6 +2,7 @@ import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 import { Ionicons } from "@expo/vector-icons";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.WHITE};
@@ -22,14 +23,14 @@ export const Header = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
   font-family: ${({ theme }) => theme.fonts.REGULAR};
   color: ${({ theme }) => theme.colors.BLACK};
   line-height: 14.52px;
 `;
 
 export const BoldTitle = styled.Text`
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
   font-family: ${({ theme }) => theme.fonts.BOLD};
   color: ${({ theme }) => theme.colors.BLACK};
   line-height: 14.52px;
@@ -38,8 +39,8 @@ export const BoldTitle = styled.Text`
 export const Logo = styled.Image.attrs({
   resizeMode: "contain",
 })`
-  height: 29px;
-  width: 29px;
+  height: ${RFValue(29)}px;
+  width: ${RFValue(29)}px;
   border-radius: 50px;
   align-self: center;
 `;
@@ -55,7 +56,7 @@ export const LineSpacer = styled.View`
 export const Content = styled.View``;
 
 export const Description = styled.Text`
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
   font-family: ${({ theme }) => theme.fonts.REGULAR};
   color: ${({ theme }) => theme.colors.GRAY_4};
   line-height: 14.52px;

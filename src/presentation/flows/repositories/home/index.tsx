@@ -1,10 +1,14 @@
 import React from "react";
-import { Container, Text } from "./styles";
+import { RepositoryCard } from "../../../components/RepositoryCard";
+import { Container, RepositoryList } from "./styles";
 
 const Home = () => {
   return (
     <Container>
-      <Text>Tela de Repositórios</Text>
+      <RepositoryList>
+        <RepositoryCard />
+        <RepositoryCard />
+      </RepositoryList>
     </Container>
   );
 };

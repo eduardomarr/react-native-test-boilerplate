@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 import { Modalize } from "react-native-modalize";
 
-
 export const Container = styled(Modalize).attrs({
   adjustToContentHeight: true,
   handlePosition: "inside",
@@ -9,7 +8,7 @@ export const Container = styled(Modalize).attrs({
     padding: 24,
   },
 })`
-  background-color: ${({ theme }) => theme.colors.GRAY_2};
+  background-color: ${({ theme }) => theme.colors.WHITE};
 `;
 
 export const Text = styled.Text`

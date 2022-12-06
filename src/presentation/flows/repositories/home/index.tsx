@@ -10,11 +10,15 @@ const Home = () => {
     getUserRepositories("eduardomarr");
   }, []);
 
+  const notFavorite = repositories.filter(
+    (item: Repository) => item.favorite === false
+  );
+
   return (
     <Container>
       <RepositoryList>
-        {repositories.map((item: Repository) => (
-          <RepositoryCard repository={item} />
+        {notFavorite.map((item: Repository) => (
+          <RepositoryCard repository={item} key={item.id} />
         ))}
       </RepositoryList>
     </Container>

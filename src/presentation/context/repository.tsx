@@ -39,7 +39,7 @@ export const RepositoryProvider = ({ children }: Children) => {
   const addFavoriteRepository = async (repository: Repository) => {
     const allRepositories = [...repositories];
 
-    const favorites = allRepositories.map((item: Repository) => {
+    const updatedRepositories = allRepositories.map((item: Repository) => {
       if (item.id === repository.id) {
         return {
           ...item,
@@ -49,13 +49,12 @@ export const RepositoryProvider = ({ children }: Children) => {
       return item;
     });
 
-    const notFavorites = favorites.filter(
-      (item: Repository) => item.favorite === false
+    const allFavorites = updatedRepositories.filter(
+      (item: Repository) => item.favorite === true
     );
 
-    setFavorites(favorites);
-
-    setRepositories(notFavorites);
+    setRepositories(updatedRepositories);
+    setFavorites(allFavorites);
   };
 
   const removeFavoriteRepository = async (repository: Repository) => {

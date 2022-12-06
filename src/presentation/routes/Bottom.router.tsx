@@ -27,11 +27,11 @@ export default function BottomRouter() {
         ),
         tabBarStyle: {
           height: RFValue(56),
-          paddingBottom: isIphoneX() ? 8 : 4,
+          paddingBottom: isIphoneX() ? 12 : 4,
         },
         tabBarLabelStyle: {
           fontFamily: theme.fonts.REGULAR,
-          fontSize: 14,
+          fontSize: RFValue(14),
         },
       }}
     >

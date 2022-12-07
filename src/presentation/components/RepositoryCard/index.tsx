@@ -40,11 +40,7 @@ export function RepositoryCard({
     <Container
       onPress={() =>
         navigation.navigate("Details", {
-          owner: repository.owner.name,
-          name: repository.name,
-          description: repository.description,
-          language: repository.language,
-          url: repository.url,
+          repositoryId: repository.id,
         })
       }
     >

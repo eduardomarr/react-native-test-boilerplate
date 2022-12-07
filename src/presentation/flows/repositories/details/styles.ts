@@ -6,6 +6,10 @@ import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { isIphoneX } from "react-native-iphone-x-helper";
 
+interface FooterButtonProps {
+  isFavoriteButton: boolean;
+}
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.GRAY_2};
@@ -83,8 +87,12 @@ export const NavigateIcon = styled(Feather)`
   color: ${({ theme }) => theme.colors.BLUE};
 `;
 
-export const FooterButton = styled(RectButton)`
+export const FooterButton = styled(RectButton)<FooterButtonProps>`
   background: ${({ theme }) => theme.colors.YELLOW_2};
+
+  background: ${({ isFavoriteButton, theme }) =>
+    isFavoriteButton ? theme.colors.WHITE : theme.colors.YELLOW_2};
+
   width: 100%;
   flex-direction: row;
   align-items: center;
@@ -92,9 +100,11 @@ export const FooterButton = styled(RectButton)`
 
   padding: 8px 0;
   border-radius: 4px;
+  border-width: ${({ isFavoriteButton }) => (isFavoriteButton ? "1px" : "0")}
+  border-color: ${({ theme }) => theme.colors.BLACK}
 
   shadow-color: ${({ theme }) => theme.colors.BLACK};
-  shadow-opacity: 0.25;
+  shadow-opacity: ${({ isFavoriteButton }) => (isFavoriteButton ? "0" : "0.25")}
   shadow-radius: 4px;
   elevation: 2;
 `;

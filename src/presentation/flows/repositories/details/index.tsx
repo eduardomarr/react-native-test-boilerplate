@@ -1,5 +1,8 @@
 import { useRoute } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
+import { Linking } from "react-native";
+import { Repository } from "../../../context/repository";
+import { useRepository } from "../../../hooks/useRepository";
 import {
   Container,
   Content,
@@ -10,7 +13,6 @@ import {
   LanguageColor,
   LanguageContainer,
   Footer,
-  NavigateContainer,
   NavigateButton,
   FooterButton,
   FooterButtonTitle,
@@ -20,31 +22,66 @@ import {
 } from "./styles";
 
 const Details = () => {
+  const { addFavoriteRepository, repositories, removeFavoriteRepository } =
+    useRepository();
   const route = useRoute();
 
-  const { owner, name, description, language, url } = route.params;
+  const { repositoryId } = route.params;
+
+  function handleOpenExternalUrl(url: string) {
+    Linking.openURL(url).catch((err) =>
+      console.error("An error occurred", err)
+    );
+  }
+
+  const selectedRepository = useMemo(() => {
+    const selected = repositories.find(
+      (item: Repository) => item.id === repositoryId
+    );
+    return selected!;
+  }, [repositories]);
+
+  function handleToggleFavorite(isFavorite: boolean) {
+    if (isFavorite) {
+      removeFavoriteRepository(selectedRepository);
+    } else {
+      addFavoriteRepository(selectedRepository);
+    }
+  }
 
   return (
     <Container>
       <Content>
         <Title>
-          {owner}/<BoldTitle>{name}</BoldTitle>
+          {selectedRepository.owner.name}/
+          <BoldTitle>{selectedRepository.name}</BoldTitle>
         </Title>
-        <Description>{description}</Description>
+        <Description>{selectedRepository.description}</Description>
         <LanguageContainer>
           <LanguageColor />
-          <Language>{language}</Language>
+          <Language>{selectedRepository.language}</Language>
         </LanguageContainer>
       </Content>
 
       <Footer>
-        <NavigateButton>
+        <NavigateButton
+          onPress={() => handleOpenExternalUrl(selectedRepository.url)}
+        >
           <NavigateTitle>Ver repositório</NavigateTitle>
           <NavigateIcon name="link-2" size={20} />
         </NavigateButton>
-        <FooterButton>
-          <FooterButtonTitle>Favoritar</FooterButtonTitle>
-          <FooterIcon name="star" size={20} />
+
+        <FooterButton
+          isFavoriteButton={selectedRepository.favorite}
+          onPress={() => handleToggleFavorite(selectedRepository.favorite)}
+        >
+          <FooterButtonTitle>
+            {selectedRepository.favorite ? "Desfavoritar" : "Favoritar"}
+          </FooterButtonTitle>
+          <FooterIcon
+            name={selectedRepository.favorite ? "star-outline" : "star"}
+            size={20}
+          />
         </FooterButton>
       </Footer>
     </Container>

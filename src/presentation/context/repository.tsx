@@ -67,7 +67,30 @@ export const RepositoryProvider = ({ children }: Children) => {
   };
 
   const removeFavoriteRepository = async (repository: Repository) => {
-    // TODO
+    const allRepositories = [...repositories];
+
+    const updatedRepositories = allRepositories.map((item: Repository) => {
+      if (item.id === repository.id) {
+        return {
+          ...item,
+          favorite: false,
+        };
+      }
+      return item;
+    });
+
+    const allFavorites = updatedRepositories.filter(
+      (item: Repository) => item.favorite === true
+    );
+
+    setRepositories(updatedRepositories);
+
+    await AsyncStorage.setItem(
+      favoritesStorageKey,
+      JSON.stringify(allFavorites)
+    );
+
+    setFavorites(allFavorites);
   };
 
   const getUserRepositories = async (user: string) => {
@@ -81,7 +104,7 @@ export const RepositoryProvider = ({ children }: Children) => {
         avatar: item.owner.avatar_url,
       },
       description: item.description,
-      url: item.url,
+      url: item.html_url,
       language: item.language,
       stars: item.stargazers_count,
       favorite: false,

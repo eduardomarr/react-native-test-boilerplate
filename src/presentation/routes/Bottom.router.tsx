@@ -50,7 +50,6 @@ export default function BottomRouter() {
         component={Favorites}
         options={{
           tabBarLabel: "Favoritos",
-
           tabBarIcon: ({ color }) => (
             <Ionicons name="star" size={20} color={color} />
           ),

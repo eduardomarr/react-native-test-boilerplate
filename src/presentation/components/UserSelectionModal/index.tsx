@@ -1,6 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useModalize } from "react-native-modalize";
-import { Container, Title } from "./styles";
+import {
+  Container,
+  ModalButtonContainer,
+  ModalButton,
+  Title,
+  Input,
+} from "./styles";
+import theme from "../../styles/theme";
+import { useRepository } from "../../hooks/useRepository";
 
 type Props = {
   visible: boolean;
@@ -8,15 +16,53 @@ type Props = {
 };
 
 const UserSelectionModal = ({ visible, onClose }: Props) => {
+  const { setRepositoryOwner, getUserRepositories } = useRepository();
+  const [text, setText] = useState("");
+
   const { ref, open, close } = useModalize();
 
   useEffect(() => {
     visible ? open() : close();
   }, [visible]);
 
+  function handleSetNewOwner() {
+    setRepositoryOwner(text);
+    getUserRepositories(text);
+    onClose();
+    setText("");
+  }
+
   return (
     <Container ref={ref} onClose={onClose}>
       <Title>Alterar usuário selecionado</Title>
+      <Input
+        label="Nome do usuário"
+        value={text}
+        onChangeText={(text) => setText(text)}
+        underlineColor={theme.colors.BLACK}
+        activeUnderlineColor={theme.colors.BLACK}
+        outlineColor={theme.colors.BLACK}
+        activeOutlineColor={theme.colors.BLACK}
+        textColor={theme.colors.BLACK}
+        style={{ backgroundColor: theme.colors.GRAY_2 }}
+      />
+      <ModalButtonContainer>
+        <ModalButton
+          mode="text"
+          textColor={theme.colors.BLUE}
+          onPress={() => onClose()}
+        >
+          Cancelar
+        </ModalButton>
+        <ModalButton
+          mode="contained"
+          buttonColor={theme.colors.BLUE}
+          onPress={() => handleSetNewOwner()}
+          style={{ flex: 1 }}
+        >
+          Salvar
+        </ModalButton>
+      </ModalButtonContainer>
     </Container>
   );
 };

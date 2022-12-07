@@ -1,6 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import RepoHttpService from "../../infrastructure/service/RepoHttpService";
 import UserSelectionModal from "../components/UserSelectionModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Children = { children: JSX.Element };
 
@@ -34,6 +35,8 @@ export const RepositoryProvider = ({ children }: Children) => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [repositoryOwner, setRepositoryOwner] = useState("appswefit");
 
+  const favoritesStorageKey = "@wefit:favorites";
+
   const toggleUserSelectionModal = () => setShowModal((value) => !value);
 
   const addFavoriteRepository = async (repository: Repository) => {
@@ -54,6 +57,12 @@ export const RepositoryProvider = ({ children }: Children) => {
     );
 
     setRepositories(updatedRepositories);
+
+    await AsyncStorage.setItem(
+      favoritesStorageKey,
+      JSON.stringify(allFavorites)
+    );
+
     setFavorites(allFavorites);
   };
 

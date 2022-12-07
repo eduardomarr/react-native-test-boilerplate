@@ -23,9 +23,15 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useContext } from "react";
 import { Repository, RepositoryContext } from "../../context/repository";
 
-type RepositoryCardProps = { repository: Repository };
+type RepositoryCardProps = {
+  repository: Repository;
+  isFavoriteScreen: boolean;
+};
 
-export function RepositoryCard({ repository }: RepositoryCardProps) {
+export function RepositoryCard({
+  repository,
+  isFavoriteScreen,
+}: RepositoryCardProps) {
   const { addFavoriteRepository } = useContext(RepositoryContext);
   return (
     <Container>
@@ -39,12 +45,14 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
       <Content>
         <Description>{repository.description}</Description>
         <Footer>
-          <GestureHandlerRootView>
-            <FavoriteButton onPress={() => addFavoriteRepository(repository)}>
-              <FavoriteIcon name="star" />
-              <FavoriteButtonTitle>Favoritar</FavoriteButtonTitle>
-            </FavoriteButton>
-          </GestureHandlerRootView>
+          {!isFavoriteScreen && (
+            <GestureHandlerRootView>
+              <FavoriteButton onPress={() => addFavoriteRepository(repository)}>
+                <FavoriteIcon name="star" />
+                <FavoriteButtonTitle>Favoritar</FavoriteButtonTitle>
+              </FavoriteButton>
+            </GestureHandlerRootView>
+          )}
 
           <FavoritesContainer>
             <FavoriteIcon name="star" />

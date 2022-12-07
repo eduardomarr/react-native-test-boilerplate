@@ -18,7 +18,11 @@ const Home = () => {
     <Container>
       <RepositoryList>
         {notFavorite.map((item: Repository) => (
-          <RepositoryCard repository={item} key={item.id} />
+          <RepositoryCard
+            repository={item}
+            key={item.id}
+            isFavoriteScreen={false}
+          />
         ))}
       </RepositoryList>
     </Container>

@@ -1,6 +1,6 @@
-import React from "react";
-import StackRouter from "./Stack.router";
-import { NavigationContainer } from "@react-navigation/native";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import StackRouter from './Stack.router';
 
 export default function AppRoutes() {
   return (

@@ -1,5 +1,5 @@
-import { api } from "../http/GitHubApi";
-import { AxiosPromise } from "axios";
+import { AxiosPromise } from 'axios';
+import { api } from '../http/GitHubApi';
 
 interface IRepoHttpRepository {
   get: (user: string) => Promise<AxiosPromise>;

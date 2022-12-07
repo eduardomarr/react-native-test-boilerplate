@@ -1,19 +1,18 @@
-import React, { useEffect } from "react";
-import { RepositoryCard } from "../../../components/RepositoryCard";
-import { RepositoryTypes } from "../../../context/repository";
-import { useRepository } from "../../../hooks/useRepository";
-import { Container, RepositoryList, InfoMessage } from "./styles";
+import React, { useEffect } from 'react';
+import { RepositoryCard } from '../../../components/RepositoryCard';
+import { RepositoryTypes } from '../../../context/repository';
+import { useRepository } from '../../../hooks/useRepository';
+import { Container, RepositoryList, InfoMessage } from './styles';
 
-const Home = () => {
-  const { getUserRepositories, repositories, repositoryOwner } =
-    useRepository();
+function Home() {
+  const { getUserRepositories, repositories, repositoryOwner } = useRepository();
 
   useEffect(() => {
     getUserRepositories(repositoryOwner);
   }, []);
 
   const notFavorite = repositories.filter(
-    (item: RepositoryTypes) => item.favorite === false
+    (item: RepositoryTypes) => item.favorite === false,
   );
 
   return (
@@ -33,6 +32,6 @@ const Home = () => {
       </RepositoryList>
     </Container>
   );
-};
+}
 
 export default Home;

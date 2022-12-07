@@ -1,21 +1,20 @@
-import React, { useCallback, useState } from "react";
-import { RepositoryCard } from "../../components/RepositoryCard";
-import { RepositoryTypes } from "../../context/repository";
-import { Container, InfoMessage, RepositoryList } from "./styles";
+import React, { useCallback, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { RepositoryCard } from '../../components/RepositoryCard';
+import { RepositoryTypes } from '../../context/repository';
+import { Container, InfoMessage, RepositoryList } from './styles';
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "@react-navigation/native";
-
-const Favorites = () => {
+function Favorites() {
   const [favoritesRepositories, setFavoritesRepositories] = useState([]);
 
-  const favoritesStorageKey = "@wefit:favorites";
+  const favoritesStorageKey = '@wefit:favorites';
 
   useFocusEffect(
     useCallback(() => {
       async function getData() {
         const storagedFavorites = await AsyncStorage.getItem(
-          favoritesStorageKey
+          favoritesStorageKey,
         );
 
         if (storagedFavorites) {
@@ -26,7 +25,7 @@ const Favorites = () => {
       getData();
 
       return () => {};
-    }, [])
+    }, []),
   );
 
   return (
@@ -39,13 +38,13 @@ const Favorites = () => {
             <RepositoryCard
               repository={item}
               key={item.id}
-              isFavoriteScreen={true}
+              isFavoriteScreen
             />
           ))
         )}
       </RepositoryList>
     </Container>
   );
-};
+}
 
 export default Favorites;

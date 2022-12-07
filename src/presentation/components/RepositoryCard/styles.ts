@@ -1,8 +1,8 @@
-import { RectButton } from "react-native-gesture-handler";
-import styled from "styled-components/native";
+import { RectButton } from 'react-native-gesture-handler';
+import styled from 'styled-components/native';
 
-import { Ionicons } from "@expo/vector-icons";
-import { RFValue } from "react-native-responsive-fontsize";
+import { Ionicons } from '@expo/vector-icons';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled(RectButton)`
   background-color: ${({ theme }) => theme.colors.WHITE};
@@ -39,7 +39,7 @@ export const BoldTitle = styled.Text`
 `;
 
 export const Logo = styled.Image.attrs({
-  resizeMode: "contain",
+  resizeMode: 'contain',
 })`
   height: ${RFValue(29)}px;
   width: ${RFValue(29)}px;

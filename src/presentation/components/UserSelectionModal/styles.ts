@@ -1,13 +1,13 @@
-import styled from "styled-components/native";
-import { Modalize } from "react-native-modalize";
-import { RFValue } from "react-native-responsive-fontsize";
-import { Button, TextInput } from "react-native-paper";
-import theme from "../../styles/theme";
-import { isIphoneX } from "react-native-iphone-x-helper";
+import styled from 'styled-components/native';
+import { Modalize } from 'react-native-modalize';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { Button, TextInput } from 'react-native-paper';
+import { isIphoneX } from 'react-native-iphone-x-helper';
+import styleTheme from '../../styles/theme';
 
 export const Container = styled(Modalize).attrs({
   adjustToContentHeight: true,
-  handlePosition: "inside",
+  handlePosition: 'inside',
   childrenStyle: {
     padding: 24,
   },
@@ -23,7 +23,7 @@ export const Title = styled.Text`
 `;
 
 export const Input = styled(TextInput).attrs({
-  autoCapitalize: "none",
+  autoCapitalize: 'none',
 })`
   margin-bottom: 10px;
 `;
@@ -33,7 +33,7 @@ export const ModalButtonContainer = styled.View`
   align-items: center;
   justify-content: space-evenly;
 
-  padding-bottom: ${isIphoneX() ? "8px" : "4px"};
+  padding-bottom: ${isIphoneX() ? '8px' : '4px'};
 
   width: 100%;
 `;
@@ -41,8 +41,8 @@ export const ModalButtonContainer = styled.View`
 export const ModalButton = styled(Button).attrs({
   uppercase: true,
   labelStyle: {
-    fontWeight: "bold",
-    fontFamily: theme.fonts.MEDIUM,
+    fontWeight: 'bold',
+    fontFamily: styleTheme.fonts.MEDIUM,
   },
   contentStyle: {
     height: 42,

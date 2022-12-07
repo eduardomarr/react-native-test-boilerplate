@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { RepositoryContext, RepositoryContextData } from "../context/repository";
+import { useContext } from 'react';
+import { RepositoryContext, RepositoryContextData } from '../context/repository';
 
 export const useRepository = (): RepositoryContextData => {
   const context = useContext(RepositoryContext);
@@ -9,4 +9,4 @@ export const useRepository = (): RepositoryContextData => {
   }
 
   return context;
-}
+};

@@ -1,7 +1,7 @@
-import React, { createContext, useEffect, useState } from "react";
-import RepoHttpService from "../../infrastructure/service/RepoHttpService";
-import UserSelectionModal from "../components/UserSelectionModal";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, useMemo, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RepoHttpService from '../../infrastructure/service/RepoHttpService';
+import UserSelectionModal from '../components/UserSelectionModal';
 
 type Children = { children: JSX.Element };
 
@@ -28,16 +28,16 @@ export type RepositoryContextData = {
 };
 
 export const RepositoryContext = createContext<RepositoryContextData>(
-  {} as RepositoryContextData
+  {} as RepositoryContextData,
 );
 
-export const RepositoryProvider = ({ children }: Children) => {
+export function RepositoryProvider({ children }: Children) {
   const [showModal, setShowModal] = useState(false);
   const [favorites, setFavorites] = useState<RepositoryTypes[]>([]);
   const [repositories, setRepositories] = useState<RepositoryTypes[]>([]);
-  const [repositoryOwner, setRepositoryOwner] = useState("appswefit");
+  const [repositoryOwner, setRepositoryOwner] = useState('appswefit');
 
-  const favoritesStorageKey = "@wefit:favorites";
+  const favoritesStorageKey = '@wefit:favorites';
 
   const toggleUserSelectionModal = () => setShowModal((value) => !value);
 
@@ -65,7 +65,7 @@ export const RepositoryProvider = ({ children }: Children) => {
       allFavorites = allFavorites.concat(JSON.parse(storageFavorites));
 
       const alreadyExists = allFavorites.find(
-        (item) => item.id === repository.id
+        (item) => item.id === repository.id,
       );
 
       if (!alreadyExists) {
@@ -77,7 +77,7 @@ export const RepositoryProvider = ({ children }: Children) => {
 
     await AsyncStorage.setItem(
       favoritesStorageKey,
-      JSON.stringify(allFavorites)
+      JSON.stringify(allFavorites),
     );
 
     setFavorites(allFavorites);
@@ -105,13 +105,13 @@ export const RepositoryProvider = ({ children }: Children) => {
     if (storageFavorites) {
       allFavorites = allFavorites.concat(JSON.parse(storageFavorites));
       allFavorites = allFavorites.filter(
-        (item: RepositoryTypes) => item.id !== repository.id
+        (item: RepositoryTypes) => item.id !== repository.id,
       );
     }
 
     await AsyncStorage.setItem(
       favoritesStorageKey,
-      JSON.stringify(allFavorites)
+      JSON.stringify(allFavorites),
     );
 
     setFavorites(allFavorites);
@@ -139,13 +139,13 @@ export const RepositoryProvider = ({ children }: Children) => {
     const storageFavorites = await AsyncStorage.getItem(favoritesStorageKey);
 
     if (storageFavorites) {
-      allRepositories = repositoryList.filter((item1) => {
-        return !JSON.parse(storageFavorites).some((item2: RepositoryTypes) => {
-          if (item1.id === item2.id) {
-            item1.favorite = true;
-          }
-        });
-      });
+      allRepositories = repositoryList
+        .filter((item1) => !JSON.parse(storageFavorites)
+          .forEach((item2: RepositoryTypes) => {
+            if (item1.id === item2.id) {
+              item1.favorite = true;
+            }
+          }));
     } else {
       allRepositories = repositoryList;
     }
@@ -153,18 +153,27 @@ export const RepositoryProvider = ({ children }: Children) => {
     setRepositories(allRepositories);
   };
 
+  const useRepositoryProviderValue = useMemo(() => ({
+    repositories,
+    favorites,
+    getUserRepositories,
+    toggleUserSelectionModal,
+    addFavoriteRepository,
+    removeFavoriteRepository,
+    repositoryOwner,
+    setRepositoryOwner,
+  }), [repositories,
+    favorites,
+    getUserRepositories,
+    toggleUserSelectionModal,
+    addFavoriteRepository,
+    removeFavoriteRepository,
+    repositoryOwner,
+    setRepositoryOwner]);
+
   return (
     <RepositoryContext.Provider
-      value={{
-        repositories,
-        favorites,
-        getUserRepositories,
-        toggleUserSelectionModal,
-        addFavoriteRepository,
-        removeFavoriteRepository,
-        repositoryOwner,
-        setRepositoryOwner,
-      }}
+      value={useRepositoryProviderValue}
     >
       {children}
       <UserSelectionModal
@@ -173,4 +182,4 @@ export const RepositoryProvider = ({ children }: Children) => {
       />
     </RepositoryContext.Provider>
   );
-};
+}

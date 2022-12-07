@@ -1,40 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { useModalize } from "react-native-modalize";
+import React, { useEffect, useState } from 'react';
+import { useModalize } from 'react-native-modalize';
 import {
   Container,
   ModalButtonContainer,
   ModalButton,
   Title,
   Input,
-} from "./styles";
-import theme from "../../styles/theme";
-import { useRepository } from "../../hooks/useRepository";
+} from './styles';
+import theme from '../../styles/theme';
+import { useRepository } from '../../hooks/useRepository';
 
 type Props = {
   visible: boolean;
   onClose: () => void;
 };
 
-const UserSelectionModal = ({ visible, onClose }: Props) => {
+function UserSelectionModal({ visible, onClose }: Props) {
   const { setRepositoryOwner, getUserRepositories } = useRepository();
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   const { ref, open, close } = useModalize();
 
   useEffect(() => {
-    visible ? open() : close();
+    if (visible) {
+      open();
+    } else {
+      close();
+    }
   }, [visible]);
 
   function handleSetNewOwner() {
     setRepositoryOwner(text);
     getUserRepositories(text);
     onClose();
-    setText("");
+    setText('');
   }
 
   function handleCloseModal() {
     onClose();
-    setText("");
+    setText('');
   }
 
   return (
@@ -43,7 +47,7 @@ const UserSelectionModal = ({ visible, onClose }: Props) => {
       <Input
         label="Nome do usuário"
         value={text}
-        onChangeText={(text) => setText(text)}
+        onChangeText={(e) => setText(e)}
         underlineColor={theme.colors.BLACK}
         activeUnderlineColor={theme.colors.BLACK}
         outlineColor={theme.colors.BLACK}
@@ -69,6 +73,6 @@ const UserSelectionModal = ({ visible, onClose }: Props) => {
       </ModalButtonContainer>
     </Container>
   );
-};
+}
 
 export default UserSelectionModal;

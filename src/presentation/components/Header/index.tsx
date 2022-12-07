@@ -1,12 +1,14 @@
-import React from "react";
-import { Container, Text, Button, SettingsIcon } from "./styles";
+import React from 'react';
+import {
+  Container, Text, Button, SettingsIcon,
+} from './styles';
 
 type Props = {
   title: string;
   onPress: () => void;
 };
 
-const Header = ({ title, onPress }: Props) => {
+function Header({ title, onPress }: Props) {
   return (
     <Container>
       <Text>{title}</Text>
@@ -16,6 +18,6 @@ const Header = ({ title, onPress }: Props) => {
       </Button>
     </Container>
   );
-};
+}
 
 export default Header;

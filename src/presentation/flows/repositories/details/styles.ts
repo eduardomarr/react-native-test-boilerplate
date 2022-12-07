@@ -1,10 +1,9 @@
-import { RFValue } from "react-native-responsive-fontsize";
-import styled from "styled-components/native";
-import { RectButton } from "react-native-gesture-handler";
+import { RFValue } from 'react-native-responsive-fontsize';
+import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
-import { Feather } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { isIphoneX } from "react-native-iphone-x-helper";
+import { Feather, Ionicons } from '@expo/vector-icons';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 
 interface FooterButtonProps {
   isFavoriteButton: boolean;
@@ -65,7 +64,7 @@ export const Footer = styled.View`
   padding: 16px 16px 0px 16px;
   align-items: center;
 
-  padding-bottom: ${isIphoneX() ? "32px" : "16px"};
+  padding-bottom: ${isIphoneX() ? '32px' : '16px'};
 `;
 
 export const NavigateButton = styled.TouchableOpacity`
@@ -88,8 +87,7 @@ export const NavigateIcon = styled(Feather)`
 `;
 
 export const FooterButton = styled(RectButton)<FooterButtonProps>`
-  background: ${({ isFavoriteButton, theme }) =>
-    isFavoriteButton ? theme.colors.WHITE : theme.colors.YELLOW_2};
+  background: ${({ isFavoriteButton, theme }) => (isFavoriteButton ? theme.colors.WHITE : theme.colors.YELLOW_2)};
 
   width: 100%;
   flex-direction: row;
@@ -98,7 +96,7 @@ export const FooterButton = styled(RectButton)<FooterButtonProps>`
 
   padding: 8px 0;
   border-radius: 4px;
-  border-width: ${({ isFavoriteButton }) => (isFavoriteButton ? "1px" : "0")}
+  border-width: ${({ isFavoriteButton }) => (isFavoriteButton ? '1px' : '0')}
   border-color: ${({ theme }) => theme.colors.BLACK}
 
   shadow-color: ${({ theme }) => theme.colors.BLACK};

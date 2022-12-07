@@ -1,3 +1,6 @@
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { RepositoryTypes } from '../../context/repository';
 import {
   Container,
   Header,
@@ -16,12 +19,8 @@ import {
   FavoritesContainer,
   LanguageContainer,
   LanguageColor,
-} from "./styles";
-
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useContext } from "react";
-import { RepositoryTypes, RepositoryContext } from "../../context/repository";
-import { useNavigation } from "@react-navigation/native";
+} from './styles';
+import { useRepository } from '../../hooks/useRepository';
 
 type RepositoryCardProps = {
   repository: RepositoryTypes;
@@ -32,21 +31,21 @@ export function RepositoryCard({
   repository,
   isFavoriteScreen,
 }: RepositoryCardProps) {
-  const { addFavoriteRepository } = useContext(RepositoryContext);
+  const { addFavoriteRepository } = useRepository();
 
   const navigation = useNavigation();
 
   return (
     <Container
-      onPress={() =>
-        navigation.navigate("Details", {
-          repository,
-        })
-      }
+      onPress={() => navigation.navigate('Details', {
+        repository,
+      })}
     >
       <Header>
         <Title>
-          {repository.owner.name}/<BoldTitle>{repository.name}</BoldTitle>
+          {repository.owner.name}
+          /
+          <BoldTitle>{repository.name}</BoldTitle>
         </Title>
         <Logo source={{ uri: repository.owner.avatar }} />
       </Header>

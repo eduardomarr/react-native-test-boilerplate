@@ -1,15 +1,14 @@
-import React from "react";
-import { useTheme } from "styled-components";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import React from 'react';
+import { useTheme } from 'styled-components';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
-import Header from "../components/Header";
-import Home from "../flows/repositories/home";
-import Favorites from "../flows/favorites";
-import { useRepository } from "../hooks/useRepository";
-import { RFValue } from "react-native-responsive-fontsize";
-import { isIphoneX } from "react-native-iphone-x-helper";
+import { RFValue } from 'react-native-responsive-fontsize';
+import { isIphoneX } from 'react-native-iphone-x-helper';
+import Header from '../components/Header';
+import Home from '../flows/repositories/home';
+import Favorites from '../flows/favorites';
+import { useRepository } from '../hooks/useRepository';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +38,7 @@ export default function BottomRouter() {
         name="Repositories"
         component={Home}
         options={{
-          tabBarLabel: "Repositórios",
+          tabBarLabel: 'Repositórios',
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="github" size={20} color={color} />
           ),
@@ -49,7 +48,7 @@ export default function BottomRouter() {
         name="Favorites"
         component={Favorites}
         options={{
-          tabBarLabel: "Favoritos",
+          tabBarLabel: 'Favoritos',
           tabBarIcon: ({ color }) => (
             <Ionicons name="star" size={20} color={color} />
           ),

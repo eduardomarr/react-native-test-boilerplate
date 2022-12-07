@@ -1,10 +1,10 @@
-import React from "react";
-import BottomRouter from "./Bottom.router";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useTheme } from 'styled-components';
+import BottomRouter from './Bottom.router';
 
-import { Splash } from "../flows/splash";
-import Details from "../flows/repositories/details";
-import { useTheme } from "styled-components";
+import { Splash } from '../flows/splash';
+import Details from '../flows/repositories/details';
 
 export type StackRootParamList = {
   Splash: undefined;
@@ -34,7 +34,7 @@ export default function StackRouter() {
         component={Details}
         options={{
           headerBackTitleVisible: false,
-          title: "Detalhes",
+          title: 'Detalhes',
           headerStyle: {
             backgroundColor: theme.colors.BLACK,
           },
@@ -43,7 +43,7 @@ export default function StackRouter() {
             fontFamily: theme.fonts.MEDIUM,
             fontSize: 20,
           },
-          headerTitleAlign: "left",
+          headerTitleAlign: 'left',
         }}
       />
     </Stack.Navigator>

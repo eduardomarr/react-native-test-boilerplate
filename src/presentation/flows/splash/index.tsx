@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { Container, Logo } from "./styles";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Container, Logo } from './styles';
 
-export const Splash = () => {
+export function Splash() {
   const navigation = useNavigation();
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("BottomRouter");
+      navigation.navigate('BottomRouter');
     }, 2000);
   }, []);
 
@@ -16,4 +16,4 @@ export const Splash = () => {
       <Logo />
     </Container>
   );
-};
+}

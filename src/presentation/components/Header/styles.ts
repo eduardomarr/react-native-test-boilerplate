@@ -1,5 +1,5 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import styled from "styled-components/native";
+import { MaterialIcons } from '@expo/vector-icons';
+import styled from 'styled-components/native';
 
 export const Container = styled.View`
   width: 100%;
@@ -20,7 +20,7 @@ export const Button = styled.TouchableOpacity.attrs({
   activeOpacity: 1,
 })``;
 
-export const SettingsIcon = styled(MaterialIcons).attrs(({ theme }) => ({
-  name: "settings",
+export const SettingsIcon = styled(MaterialIcons).attrs(() => ({
+  name: 'settings',
   size: 24,
 }))``;

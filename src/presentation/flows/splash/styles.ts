@@ -1,5 +1,5 @@
-import logo from "../../assets/images/logo.png";
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
+import logo from '../../assets/images/logo.png';
 
 export const Container = styled.View`
   flex: 1;

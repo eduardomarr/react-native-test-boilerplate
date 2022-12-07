@@ -1,8 +1,8 @@
-import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { Linking } from "react-native";
-import { RepositoryTypes } from "../../../context/repository";
-import { useRepository } from "../../../hooks/useRepository";
+import { useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Linking } from 'react-native';
+import { RepositoryTypes } from '../../../context/repository';
+import { useRepository } from '../../../hooks/useRepository';
 import {
   Container,
   Content,
@@ -19,22 +19,18 @@ import {
   FooterIcon,
   NavigateTitle,
   NavigateIcon,
-} from "./styles";
+} from './styles';
 
-const Details = () => {
-  const { addFavoriteRepository, repositories, removeFavoriteRepository } =
-    useRepository();
+function Details() {
+  const { addFavoriteRepository, removeFavoriteRepository } = useRepository();
   const route = useRoute();
 
   const { repository } = route.params;
 
-  const [selectedRepository, setSelectedRepository] =
-    useState<RepositoryTypes>(repository);
+  const [selectedRepository, setSelectedRepository] = useState<RepositoryTypes>(repository);
 
   function handleOpenExternalUrl(url: string) {
-    Linking.openURL(url).catch((err) =>
-      console.error("An error occurred", err)
-    );
+    Linking.openURL(url).catch((err) => console.error('Não foi possível abrir o repositório', err));
   }
 
   function handleToggleFavorite(isFavorite: boolean) {
@@ -57,7 +53,8 @@ const Details = () => {
     <Container>
       <Content>
         <Title>
-          {selectedRepository.owner.name}/
+          {selectedRepository.owner.name}
+          /
           <BoldTitle>{selectedRepository.name}</BoldTitle>
         </Title>
         <Description>{selectedRepository.description}</Description>
@@ -70,9 +67,7 @@ const Details = () => {
       </Content>
 
       <Footer>
-        <NavigateButton
-          onPress={() => handleOpenExternalUrl(selectedRepository.url)}
-        >
+        <NavigateButton onPress={() => handleOpenExternalUrl(selectedRepository.url)}>
           <NavigateTitle>Ver repositório</NavigateTitle>
           <NavigateIcon name="link-2" size={20} />
         </NavigateButton>
@@ -81,17 +76,12 @@ const Details = () => {
           isFavoriteButton={selectedRepository.favorite}
           onPress={() => handleToggleFavorite(selectedRepository.favorite)}
         >
-          <FooterButtonTitle>
-            {selectedRepository.favorite ? "Desfavoritar" : "Favoritar"}
-          </FooterButtonTitle>
-          <FooterIcon
-            name={selectedRepository.favorite ? "star-outline" : "star"}
-            size={20}
-          />
+          <FooterButtonTitle>{selectedRepository.favorite ? 'Desfavoritar' : 'Favoritar'}</FooterButtonTitle>
+          <FooterIcon name={selectedRepository.favorite ? 'star-outline' : 'star'} size={20} />
         </FooterButton>
       </Footer>
     </Container>
   );
-};
+}
 
 export default Details;

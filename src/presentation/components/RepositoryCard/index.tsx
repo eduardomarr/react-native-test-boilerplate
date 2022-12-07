@@ -18,10 +18,10 @@ import {
   LanguageColor,
 } from "./styles";
 
-import WeFitLogo from "../../assets/images/WefitLogo.png";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useContext } from "react";
 import { Repository, RepositoryContext } from "../../context/repository";
+import { useNavigation } from "@react-navigation/native";
 
 type RepositoryCardProps = {
   repository: Repository;
@@ -33,8 +33,21 @@ export function RepositoryCard({
   isFavoriteScreen,
 }: RepositoryCardProps) {
   const { addFavoriteRepository } = useContext(RepositoryContext);
+
+  const navigation = useNavigation();
+
   return (
-    <Container>
+    <Container
+      onPress={() =>
+        navigation.navigate("Details", {
+          owner: repository.owner.name,
+          name: repository.name,
+          description: repository.description,
+          language: repository.language,
+          url: repository.url,
+        })
+      }
+    >
       <Header>
         <Title>
           {repository.owner.name}/<BoldTitle>{repository.name}</BoldTitle>

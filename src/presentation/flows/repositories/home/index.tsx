@@ -1,10 +1,11 @@
-import React, { useCallback, useContext, useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { RepositoryCard } from "../../../components/RepositoryCard";
-import { Repository, RepositoryContext } from "../../../context/repository";
+import { Repository } from "../../../context/repository";
+import { useRepository } from "../../../hooks/useRepository";
 import { Container, RepositoryList } from "./styles";
 
 const Home = () => {
-  const { getUserRepositories, repositories } = useContext(RepositoryContext);
+  const { getUserRepositories, repositories } = useRepository();
 
   useEffect(() => {
     getUserRepositories("eduardomarr");

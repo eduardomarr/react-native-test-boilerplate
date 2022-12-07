@@ -1,13 +1,14 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { RepositoryCard } from "../../components/RepositoryCard";
-import { Repository, RepositoryContext } from "../../context/repository";
+import { Repository } from "../../context/repository";
 import { Container, RepositoryList } from "./styles";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { useRepository } from "../../hooks/useRepository";
 
 const Favorites = () => {
-  const { favorites } = useContext(RepositoryContext);
+  const { favorites } = useRepository();
   const [favoritesRepositories, setFavoritesRepositories] = useState([]);
 
   const favoritesStorageKey = "@wefit:favorites";
@@ -20,7 +21,6 @@ const Favorites = () => {
         );
 
         if (storagedFavorites) {
-          console.log(JSON.parse(storagedFavorites));
           setFavoritesRepositories(JSON.parse(storagedFavorites));
         }
       }

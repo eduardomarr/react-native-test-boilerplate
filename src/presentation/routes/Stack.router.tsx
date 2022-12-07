@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { Splash } from "../flows/splash";
 import Details from "../flows/repositories/details";
+import { useTheme } from "styled-components";
 
 export type StackRootParamList = {
   Splash: undefined;
@@ -14,6 +15,8 @@ export type StackRootParamList = {
 const Stack = createStackNavigator<StackRootParamList>();
 
 export default function StackRouter() {
+  const theme = useTheme();
+
   return (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
@@ -29,6 +32,19 @@ export default function StackRouter() {
       <Stack.Screen
         name="Details"
         component={Details}
+        options={{
+          headerBackTitleVisible: false,
+          title: "Detalhes",
+          headerStyle: {
+            backgroundColor: theme.colors.BLACK,
+          },
+          headerTintColor: theme.colors.WHITE,
+          headerTitleStyle: {
+            fontFamily: theme.fonts.MEDIUM,
+            fontSize: 20,
+          },
+          headerTitleAlign: "left",
+        }}
       />
     </Stack.Navigator>
   );

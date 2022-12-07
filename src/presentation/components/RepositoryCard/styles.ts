@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled.View`
+export const Container = styled(RectButton)`
   background-color: ${({ theme }) => theme.colors.WHITE};
   padding: 12px 16px;
   border-radius: 4px;

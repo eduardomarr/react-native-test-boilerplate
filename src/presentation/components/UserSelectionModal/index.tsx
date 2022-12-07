@@ -32,6 +32,11 @@ const UserSelectionModal = ({ visible, onClose }: Props) => {
     setText("");
   }
 
+  function handleCloseModal() {
+    onClose();
+    setText("");
+  }
+
   return (
     <Container ref={ref} onClose={onClose}>
       <Title>Alterar usuário selecionado</Title>
@@ -50,7 +55,7 @@ const UserSelectionModal = ({ visible, onClose }: Props) => {
         <ModalButton
           mode="text"
           textColor={theme.colors.BLUE}
-          onPress={() => onClose()}
+          onPress={() => handleCloseModal()}
         >
           Cancelar
         </ModalButton>

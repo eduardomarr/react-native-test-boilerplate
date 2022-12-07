@@ -104,6 +104,7 @@ export const Favorites = styled.Text`
 export const LanguageContainer = styled.View`
   flex-direction: row;
   align-items: center;
+  min-width: ${RFValue(88)}px;
 `;
 
 export const LanguageColor = styled.View`

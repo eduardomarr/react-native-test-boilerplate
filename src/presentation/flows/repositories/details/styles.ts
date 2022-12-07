@@ -106,9 +106,6 @@ export const FooterButton = styled(RectButton)<FooterButtonProps>`
   shadow-opacity: 0.22;
   shadow-radius: 2.22px;
   elevation: 3;
-
-  margin-bottom: 32px;
-
 `;
 
 export const FooterButtonTitle = styled.Text`

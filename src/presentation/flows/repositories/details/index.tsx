@@ -61,10 +61,12 @@ const Details = () => {
           <BoldTitle>{selectedRepository.name}</BoldTitle>
         </Title>
         <Description>{selectedRepository.description}</Description>
-        <LanguageContainer>
-          <LanguageColor />
-          <Language>{selectedRepository.language}</Language>
-        </LanguageContainer>
+        {selectedRepository.language && (
+          <LanguageContainer>
+            <LanguageColor />
+            <Language>{selectedRepository.language}</Language>
+          </LanguageContainer>
+        )}
       </Content>
 
       <Footer>

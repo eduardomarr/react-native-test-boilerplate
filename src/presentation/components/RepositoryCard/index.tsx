@@ -69,8 +69,12 @@ export function RepositoryCard({
           </FavoritesContainer>
 
           <LanguageContainer>
-            <LanguageColor />
-            <Language>{repository.language}</Language>
+            {repository.language && (
+              <>
+                <LanguageColor />
+                <Language>{repository.language}</Language>
+              </>
+            )}
           </LanguageContainer>
         </Footer>
       </Content>

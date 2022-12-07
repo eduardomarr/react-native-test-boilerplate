@@ -88,8 +88,6 @@ export const NavigateIcon = styled(Feather)`
 `;
 
 export const FooterButton = styled(RectButton)<FooterButtonProps>`
-  background: ${({ theme }) => theme.colors.YELLOW_2};
-
   background: ${({ isFavoriteButton, theme }) =>
     isFavoriteButton ? theme.colors.WHITE : theme.colors.YELLOW_2};
 
@@ -104,9 +102,13 @@ export const FooterButton = styled(RectButton)<FooterButtonProps>`
   border-color: ${({ theme }) => theme.colors.BLACK}
 
   shadow-color: ${({ theme }) => theme.colors.BLACK};
-  shadow-opacity: ${({ isFavoriteButton }) => (isFavoriteButton ? "0" : "0.25")}
-  shadow-radius: 4px;
-  elevation: 2;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.22;
+  shadow-radius: 2.22px;
+  elevation: 3;
+
+  margin-bottom: 32px;
+
 `;
 
 export const FooterButtonTitle = styled.Text`

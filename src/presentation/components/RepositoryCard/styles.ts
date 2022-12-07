@@ -11,9 +11,11 @@ export const Container = styled(RectButton)`
   margin-bottom: 16px;
 
   shadow-color: ${({ theme }) => theme.colors.BLACK};
-  shadow-opacity: 0.15;
-  shadow-radius: 6px;
-  elevation: 2;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
+
+  elevation: 5;
 `;
 
 export const Header = styled.View`

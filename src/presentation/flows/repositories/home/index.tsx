@@ -1,9 +1,8 @@
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { RepositoryCard } from "../../../components/RepositoryCard";
 import { RepositoryTypes } from "../../../context/repository";
 import { useRepository } from "../../../hooks/useRepository";
-import { Container, RepositoryList } from "./styles";
+import { Container, RepositoryList, InfoMessage } from "./styles";
 
 const Home = () => {
   const { getUserRepositories, repositories, repositoryOwner } =
@@ -20,13 +19,17 @@ const Home = () => {
   return (
     <Container>
       <RepositoryList>
-        {notFavorite.map((item: RepositoryTypes) => (
-          <RepositoryCard
-            repository={item}
-            key={item.id}
-            isFavoriteScreen={false}
-          />
-        ))}
+        {notFavorite.length === 0 ? (
+          <InfoMessage>Não há repositórios registrados</InfoMessage>
+        ) : (
+          notFavorite.map((item: RepositoryTypes) => (
+            <RepositoryCard
+              repository={item}
+              key={item.id}
+              isFavoriteScreen={false}
+            />
+          ))
+        )}
       </RepositoryList>
     </Container>
   );

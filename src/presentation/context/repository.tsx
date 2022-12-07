@@ -139,15 +139,13 @@ export const RepositoryProvider = ({ children }: Children) => {
     const storageFavorites = await AsyncStorage.getItem(favoritesStorageKey);
 
     if (storageFavorites) {
-      const difference = repositoryList.filter((item1) => {
+      allRepositories = repositoryList.filter((item1) => {
         return !JSON.parse(storageFavorites).some((item2: RepositoryTypes) => {
           if (item1.id === item2.id) {
             item1.favorite = true;
           }
         });
       });
-
-      allRepositories = difference;
     } else {
       allRepositories = repositoryList;
     }

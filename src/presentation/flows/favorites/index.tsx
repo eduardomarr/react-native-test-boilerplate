@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { RepositoryCard } from "../../components/RepositoryCard";
 import { RepositoryTypes } from "../../context/repository";
-import { Container, RepositoryList } from "./styles";
+import { Container, InfoMessage, RepositoryList } from "./styles";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -32,13 +32,17 @@ const Favorites = () => {
   return (
     <Container>
       <RepositoryList>
-        {favoritesRepositories.map((item: RepositoryTypes) => (
-          <RepositoryCard
-            repository={item}
-            key={item.id}
-            isFavoriteScreen={true}
-          />
-        ))}
+        {favoritesRepositories.length === 0 ? (
+          <InfoMessage>Não há repositórios salvos</InfoMessage>
+        ) : (
+          favoritesRepositories.map((item: RepositoryTypes) => (
+            <RepositoryCard
+              repository={item}
+              key={item.id}
+              isFavoriteScreen={true}
+            />
+          ))
+        )}
       </RepositoryList>
     </Container>
   );

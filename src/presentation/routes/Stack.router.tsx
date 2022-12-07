@@ -5,11 +5,15 @@ import BottomRouter from './Bottom.router';
 
 import { Splash } from '../flows/splash';
 import Details from '../flows/repositories/details';
+import { RepositoryTypes } from '../context/repository';
 
 export type StackRootParamList = {
   Splash: undefined;
   BottomRouter: undefined;
-  Details: undefined;
+  Details: {
+    repository: RepositoryTypes
+  } | undefined;
+
 };
 
 const Stack = createStackNavigator<StackRootParamList>();

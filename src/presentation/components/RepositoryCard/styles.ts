@@ -4,7 +4,11 @@ import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled(RectButton)`
+interface ChildrenProp {
+  children: React.ReactNode;
+}
+
+export const Container = styled(RectButton)<ChildrenProp>`
   background-color: ${({ theme }) => theme.colors.WHITE};
   padding: 12px 16px;
   border-radius: 4px;
@@ -70,7 +74,7 @@ export const Footer = styled.View`
   justify-content: space-between;
 `;
 
-export const FavoriteButton = styled(RectButton)`
+export const FavoriteButton = styled(RectButton)<ChildrenProp>`
   background-color: ${({ theme }) => theme.colors.YELLOW_1};
   flex-direction: row;
   align-items: center;

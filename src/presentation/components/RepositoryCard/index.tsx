@@ -1,6 +1,7 @@
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, RectButtonProps } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RepositoryTypes } from '../../context/repository';
+
 import {
   Container,
   Header,
@@ -22,14 +23,15 @@ import {
 } from './styles';
 import { useRepository } from '../../hooks/useRepository';
 
-type RepositoryCardProps = {
+interface RepositoryCardProps extends RectButtonProps {
   repository: RepositoryTypes;
   isFavoriteScreen: boolean;
-};
+}
 
 export function RepositoryCard({
   repository,
   isFavoriteScreen,
+  ...rest
 }: RepositoryCardProps) {
   const { addFavoriteRepository } = useRepository();
 
@@ -40,6 +42,7 @@ export function RepositoryCard({
       onPress={() => navigation.navigate('Details', {
         repository,
       })}
+      {...rest}
     >
       <Header>
         <Title>
@@ -54,12 +57,12 @@ export function RepositoryCard({
         <Description>{repository.description}</Description>
         <Footer>
           {!isFavoriteScreen && (
-            <GestureHandlerRootView>
-              <FavoriteButton onPress={() => addFavoriteRepository(repository)}>
-                <FavoriteIcon name="star" />
-                <FavoriteButtonTitle>Favoritar</FavoriteButtonTitle>
-              </FavoriteButton>
-            </GestureHandlerRootView>
+          <GestureHandlerRootView>
+            <FavoriteButton onPress={() => addFavoriteRepository(repository)} {...rest}>
+              <FavoriteIcon name="star" />
+              <FavoriteButtonTitle>Favoritar</FavoriteButtonTitle>
+            </FavoriteButton>
+          </GestureHandlerRootView>
           )}
 
           <FavoritesContainer>

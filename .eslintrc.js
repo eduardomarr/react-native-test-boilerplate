@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'react/jsx-props-no-spreading': 'off',
     'react/no-unstable-nested-components': 'off',
     'no-param-reassign': 0,
     '@typescript-eslint/no-unused-vars': 'error',

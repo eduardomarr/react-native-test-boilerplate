@@ -8,7 +8,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useRepository } from "../../hooks/useRepository";
 
 const Favorites = () => {
-  const { favorites } = useRepository();
   const [favoritesRepositories, setFavoritesRepositories] = useState([]);
 
   const favoritesStorageKey = "@wefit:favorites";

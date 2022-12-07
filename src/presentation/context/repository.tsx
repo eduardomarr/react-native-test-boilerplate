@@ -23,6 +23,8 @@ export type RepositoryContextData = {
   toggleUserSelectionModal: () => void;
   addFavoriteRepository: (repository: Repository) => void;
   removeFavoriteRepository: (repository: Repository) => void;
+  repositoryOwner: string;
+  setRepositoryOwner: (repositoryOwner: string) => void;
 };
 
 export const RepositoryContext = createContext<RepositoryContextData>(
@@ -122,6 +124,8 @@ export const RepositoryProvider = ({ children }: Children) => {
         toggleUserSelectionModal,
         addFavoriteRepository,
         removeFavoriteRepository,
+        repositoryOwner,
+        setRepositoryOwner,
       }}
     >
       {children}

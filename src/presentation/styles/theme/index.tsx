@@ -15,6 +15,7 @@ export default {
   },
   fonts: {
     REGULAR: "Inter_400Regular",
+    REGULAR_ROBOTO: "Roboto_400Regular",
     MEDIUM: "Roboto_500Medium",
     BOLD: "Inter_700Bold",
   },

@@ -4,22 +4,20 @@ import theme from "./src/presentation/styles/theme";
 import { RepositoryProvider } from "./src/presentation/context/repository";
 import { ThemeProvider } from "styled-components";
 
-import { 
+import {
   useFonts,
-  Roboto_500Medium
-} from '@expo-google-fonts/roboto';
+  Roboto_500Medium,
+  Roboto_400Regular,
+} from "@expo-google-fonts/roboto";
 
-import { 
-  Inter_400Regular,
-  Inter_700Bold
-} from '@expo-google-fonts/inter';
-
+import { Inter_400Regular, Inter_700Bold } from "@expo-google-fonts/inter";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
     Roboto_500Medium,
     Inter_400Regular,
-    Inter_700Bold
+    Inter_700Bold,
   });
 
   if (!fontsLoaded) return <></>;

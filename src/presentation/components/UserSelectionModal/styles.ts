@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { Modalize } from "react-native-modalize";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled(Modalize).attrs({
   adjustToContentHeight: true,
@@ -11,8 +12,8 @@ export const Container = styled(Modalize).attrs({
   background-color: ${({ theme }) => theme.colors.WHITE};
 `;
 
-export const Text = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.BOLD};
-  font-size: 20px;
+export const Title = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.REGULAR_ROBOTO};
+  font-size: ${RFValue(16)}px;
   color: ${({ theme }) => theme.colors.BLACK};
 `;

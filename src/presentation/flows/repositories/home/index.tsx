@@ -5,10 +5,11 @@ import { useRepository } from "../../../hooks/useRepository";
 import { Container, RepositoryList } from "./styles";
 
 const Home = () => {
-  const { getUserRepositories, repositories } = useRepository();
+  const { getUserRepositories, repositories, repositoryOwner } =
+    useRepository();
 
   useEffect(() => {
-    getUserRepositories("eduardomarr");
+    getUserRepositories(repositoryOwner);
   }, []);
 
   const notFavorite = repositories.filter(

@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useModalize } from "react-native-modalize";
-import {
-  Container, Text
-} from "./styles";
+import { Container, Title } from "./styles";
 
 type Props = {
   visible: boolean;
@@ -18,7 +16,7 @@ const UserSelectionModal = ({ visible, onClose }: Props) => {
 
   return (
     <Container ref={ref} onClose={onClose}>
-      <Text>Modal de Seleção de Usuário</Text>
+      <Title>Alterar usuário selecionado</Title>
     </Container>
   );
 };

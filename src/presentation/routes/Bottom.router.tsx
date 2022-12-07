@@ -26,12 +26,12 @@ export default function BottomRouter() {
           <Header title="WeFit" onPress={toggleUserSelectionModal} />
         ),
         tabBarStyle: {
-          height: RFValue(56),
-          paddingBottom: isIphoneX() ? 12 : 4,
+          height: isIphoneX() ? RFValue(64) : RFValue(56),
+          paddingBottom: isIphoneX() ? 20 : 4,
         },
         tabBarLabelStyle: {
           fontFamily: theme.fonts.REGULAR,
-          fontSize: RFValue(14),
+          fontSize: 14,
         },
       }}
     >

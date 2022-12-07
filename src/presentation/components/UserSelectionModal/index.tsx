@@ -63,7 +63,6 @@ const UserSelectionModal = ({ visible, onClose }: Props) => {
           mode="contained"
           buttonColor={theme.colors.BLUE}
           onPress={() => handleSetNewOwner()}
-          style={{ flex: 1 }}
         >
           Salvar
         </ModalButton>

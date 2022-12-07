@@ -3,6 +3,7 @@ import { Modalize } from "react-native-modalize";
 import { RFValue } from "react-native-responsive-fontsize";
 import { Button, TextInput } from "react-native-paper";
 import theme from "../../styles/theme";
+import { isIphoneX } from "react-native-iphone-x-helper";
 
 export const Container = styled(Modalize).attrs({
   adjustToContentHeight: true,
@@ -31,6 +32,8 @@ export const ModalButtonContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+
+  padding-bottom: ${isIphoneX() ? "8px" : "4px"};
 
   width: 100%;
 `;

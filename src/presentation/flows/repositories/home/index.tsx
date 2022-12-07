@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useEffect } from "react";
 import { RepositoryCard } from "../../../components/RepositoryCard";
-import { Repository } from "../../../context/repository";
+import { RepositoryTypes } from "../../../context/repository";
 import { useRepository } from "../../../hooks/useRepository";
 import { Container, RepositoryList } from "./styles";
 
@@ -13,13 +14,13 @@ const Home = () => {
   }, []);
 
   const notFavorite = repositories.filter(
-    (item: Repository) => item.favorite === false
+    (item: RepositoryTypes) => item.favorite === false
   );
 
   return (
     <Container>
       <RepositoryList>
-        {notFavorite.map((item: Repository) => (
+        {notFavorite.map((item: RepositoryTypes) => (
           <RepositoryCard
             repository={item}
             key={item.id}

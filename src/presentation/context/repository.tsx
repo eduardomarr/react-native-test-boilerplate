@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Children = { children: JSX.Element };
 
-export type Repository = {
+export type RepositoryTypes = {
   id: number;
   name: string;
   owner: { name: string; avatar: string };
@@ -17,12 +17,12 @@ export type Repository = {
 };
 
 export type RepositoryContextData = {
-  repositories: Repository[];
-  favorites: Repository[];
+  repositories: RepositoryTypes[];
+  favorites: RepositoryTypes[];
   getUserRepositories: (user: string) => Promise<void>;
   toggleUserSelectionModal: () => void;
-  addFavoriteRepository: (repository: Repository) => void;
-  removeFavoriteRepository: (repository: Repository) => void;
+  addFavoriteRepository: (repository: RepositoryTypes) => void;
+  removeFavoriteRepository: (repository: RepositoryTypes) => void;
   repositoryOwner: string;
   setRepositoryOwner: (repositoryOwner: string) => void;
 };
@@ -33,18 +33,18 @@ export const RepositoryContext = createContext<RepositoryContextData>(
 
 export const RepositoryProvider = ({ children }: Children) => {
   const [showModal, setShowModal] = useState(false);
-  const [favorites, setFavorites] = useState<Repository[]>([]);
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [favorites, setFavorites] = useState<RepositoryTypes[]>([]);
+  const [repositories, setRepositories] = useState<RepositoryTypes[]>([]);
   const [repositoryOwner, setRepositoryOwner] = useState("appswefit");
 
   const favoritesStorageKey = "@wefit:favorites";
 
   const toggleUserSelectionModal = () => setShowModal((value) => !value);
 
-  const addFavoriteRepository = async (repository: Repository) => {
+  const addFavoriteRepository = async (repository: RepositoryTypes) => {
     const allRepositories = [...repositories];
 
-    const updatedRepositories = allRepositories.map((item: Repository) => {
+    const updatedRepositories = allRepositories.map((item: RepositoryTypes) => {
       if (item.id === repository.id) {
         return {
           ...item,
@@ -54,11 +54,26 @@ export const RepositoryProvider = ({ children }: Children) => {
       return item;
     });
 
-    const allFavorites = updatedRepositories.filter(
-      (item: Repository) => item.favorite === true
-    );
-
     setRepositories(updatedRepositories);
+
+    let allFavorites: RepositoryTypes[] = [];
+
+    const storageFavorites = await AsyncStorage.getItem(favoritesStorageKey);
+    repository.favorite = true;
+
+    if (storageFavorites) {
+      allFavorites = allFavorites.concat(JSON.parse(storageFavorites));
+
+      const alreadyExists = allFavorites.find(
+        (item) => item.id === repository.id
+      );
+
+      if (!alreadyExists) {
+        allFavorites.push(repository);
+      }
+    } else {
+      allFavorites.push(repository);
+    }
 
     await AsyncStorage.setItem(
       favoritesStorageKey,
@@ -68,10 +83,10 @@ export const RepositoryProvider = ({ children }: Children) => {
     setFavorites(allFavorites);
   };
 
-  const removeFavoriteRepository = async (repository: Repository) => {
+  const removeFavoriteRepository = async (repository: RepositoryTypes) => {
     const allRepositories = [...repositories];
 
-    const updatedRepositories = allRepositories.map((item: Repository) => {
+    const updatedRepositories = allRepositories.map((item: RepositoryTypes) => {
       if (item.id === repository.id) {
         return {
           ...item,
@@ -80,12 +95,19 @@ export const RepositoryProvider = ({ children }: Children) => {
       }
       return item;
     });
-
-    const allFavorites = updatedRepositories.filter(
-      (item: Repository) => item.favorite === true
-    );
-
     setRepositories(updatedRepositories);
+
+    let allFavorites: RepositoryTypes[] = [];
+
+    const storageFavorites = await AsyncStorage.getItem(favoritesStorageKey);
+    repository.favorite = false;
+
+    if (storageFavorites) {
+      allFavorites = allFavorites.concat(JSON.parse(storageFavorites));
+      allFavorites = allFavorites.filter(
+        (item: RepositoryTypes) => item.id !== repository.id
+      );
+    }
 
     await AsyncStorage.setItem(
       favoritesStorageKey,
@@ -98,7 +120,7 @@ export const RepositoryProvider = ({ children }: Children) => {
   const getUserRepositories = async (user: string) => {
     const { data } = await RepoHttpService.get(user);
 
-    const repositoryList = data.map((item) => ({
+    const repositoryList: RepositoryTypes[] = data.map((item) => ({
       id: item.id,
       name: item.name,
       owner: {
@@ -112,7 +134,25 @@ export const RepositoryProvider = ({ children }: Children) => {
       favorite: false,
     }));
 
-    setRepositories(repositoryList);
+    let allRepositories: RepositoryTypes[] = [];
+
+    const storageFavorites = await AsyncStorage.getItem(favoritesStorageKey);
+
+    if (storageFavorites) {
+      const difference = repositoryList.filter((item1) => {
+        return !JSON.parse(storageFavorites).some((item2: RepositoryTypes) => {
+          if (item1.id === item2.id) {
+            item1.favorite = true;
+          }
+        });
+      });
+
+      allRepositories = difference;
+    } else {
+      allRepositories = repositoryList;
+    }
+
+    setRepositories(allRepositories);
   };
 
   return (

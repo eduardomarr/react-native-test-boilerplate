@@ -20,11 +20,11 @@ import {
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useContext } from "react";
-import { Repository, RepositoryContext } from "../../context/repository";
+import { RepositoryTypes, RepositoryContext } from "../../context/repository";
 import { useNavigation } from "@react-navigation/native";
 
 type RepositoryCardProps = {
-  repository: Repository;
+  repository: RepositoryTypes;
   isFavoriteScreen: boolean;
 };
 
@@ -40,7 +40,7 @@ export function RepositoryCard({
     <Container
       onPress={() =>
         navigation.navigate("Details", {
-          repositoryId: repository.id,
+          repository,
         })
       }
     >

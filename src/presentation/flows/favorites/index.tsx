@@ -1,11 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { RepositoryCard } from "../../components/RepositoryCard";
-import { Repository } from "../../context/repository";
+import { RepositoryTypes } from "../../context/repository";
 import { Container, RepositoryList } from "./styles";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-import { useRepository } from "../../hooks/useRepository";
 
 const Favorites = () => {
   const [favoritesRepositories, setFavoritesRepositories] = useState([]);
@@ -33,7 +32,7 @@ const Favorites = () => {
   return (
     <Container>
       <RepositoryList>
-        {favoritesRepositories.map((item: Repository) => (
+        {favoritesRepositories.map((item: RepositoryTypes) => (
           <RepositoryCard
             repository={item}
             key={item.id}

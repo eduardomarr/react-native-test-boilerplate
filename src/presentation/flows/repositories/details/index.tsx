@@ -1,7 +1,7 @@
 import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Linking } from "react-native";
-import { Repository } from "../../../context/repository";
+import { RepositoryTypes } from "../../../context/repository";
 import { useRepository } from "../../../hooks/useRepository";
 import {
   Container,
@@ -26,7 +26,10 @@ const Details = () => {
     useRepository();
   const route = useRoute();
 
-  const { repositoryId } = route.params;
+  const { repository } = route.params;
+
+  const [selectedRepository, setSelectedRepository] =
+    useState<RepositoryTypes>(repository);
 
   function handleOpenExternalUrl(url: string) {
     Linking.openURL(url).catch((err) =>
@@ -34,18 +37,19 @@ const Details = () => {
     );
   }
 
-  const selectedRepository = useMemo(() => {
-    const selected = repositories.find(
-      (item: Repository) => item.id === repositoryId
-    );
-    return selected!;
-  }, [repositories]);
-
   function handleToggleFavorite(isFavorite: boolean) {
     if (isFavorite) {
-      removeFavoriteRepository(selectedRepository);
+      removeFavoriteRepository(repository);
+      setSelectedRepository((prevState) => ({
+        ...prevState,
+        favorite: false,
+      }));
     } else {
-      addFavoriteRepository(selectedRepository);
+      addFavoriteRepository(repository);
+      setSelectedRepository((prevState) => ({
+        ...prevState,
+        favorite: true,
+      }));
     }
   }
 
